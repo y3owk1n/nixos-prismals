@@ -19,7 +19,7 @@ jobs:
               run: sudo apt-get install -y jq curl
 
             - name: Run update script
-              run: ./scripts/update.sh
+              run: ./update.sh
 
             - name: Commit and push changes
               uses: stefanzweifel/git-auto-commit-action@v5
