@@ -1,0 +1,28 @@
+name: Update Prisma Language Server
+
+on:
+    schedule:
+        - cron: "0 */6 * * *"
+    workflow_dispatch:
+
+jobs:
+    update-prisma:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Set up Nix
+              uses: cachix/install-nix-action@v31
+
+            - name: Install jq and curl
+              run: sudo apt-get install -y jq curl
+
+            - name: Run update script
+              run: ./scripts/update.sh
+
+            - name: Commit and push changes
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                  commit_message: "chore: update prisma-language-server"
+                  branch: main
